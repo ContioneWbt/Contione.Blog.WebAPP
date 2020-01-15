@@ -1,0 +1,125 @@
+﻿@using Contione.Blog.Infrastructure.BlogEnum;
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <!-- 本页特有样式 -->
+    <style>
+        .production-box {
+            background-color: #fff;
+            -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+        }
+
+        .production-cover {
+            padding: 3px;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+            .production-cover img {
+                width: 100%;
+            }
+
+        .production-title {
+            text-align: center;
+            margin-top: 7px;
+            margin-bottom: 5px;
+        }
+
+            .production-title > a {
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 18px;
+                color: #01AAED;
+            }
+
+        .production-abstract {
+            padding: 3px;
+            text-align: center;
+            font-size: smaller;
+            color: #838383;
+            height: 25px;
+            overflow: hidden;
+        }
+
+        .production-footer {
+            font-size: small;
+            border-top: 1px solid #e7e7e7;
+            box-shadow: 0 1px 0 0 #fff inset;
+            color: #8B8B8C;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+            .production-footer i {
+                font-size: 12px !important;
+            }
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._个人作品))
+
+    <!-- 主体 -->
+    <div class="blog-body">
+        <!-- 页面主体内容 -->
+        <div class="layui-container">
+            <blockquote class="layui-elem-quote sitemap shadow">
+                <i class="layui-icon">&#xe715;</i>
+                <span class="layui-breadcrumb" lay-separator=">">
+                    <a href="index.html">首页</a>
+                    <a><cite>个人作品</cite></a>
+                </span>
+            </blockquote>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-lg3 layui-col-sm4">
+                    <div class="production-box">
+                        <div class="production-cover">
+                            <a href="http://www.win-ui.com" target="_blank">
+                                <img src="/images/prd.jpg" alt="WinAdmin后台模板">
+                            </a>
+                        </div>
+                        <h1 class="production-title"><a href="http://www.win-ui.com" target="_blank">WinAdmin后台模板</a></h1>
+                        <p class="production-abstract">Win10风格后台模板</p>
+                        <div class="production-footer">
+                            <a class="layui-btn layui-btn-sm layui-btn-primary" href="http://www.win-ui.com" target="_blank"><i class="fa fa-eye fa-fw"></i>查看</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-primary" target="_blank"><i class="fa fa-download fa-fw"></i>下载</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-lg3 layui-col-sm4">
+                    <div class="production-box">
+                        <div class="production-cover">
+                            <a href="https://gitee.com/LY2016Start/blogtemplet" target="_blank">
+                                <img src="/images/prd.jpg" alt="Contione1.0博客模板">
+                            </a>
+                        </div>
+                        <h1 class="production-title"><a href="https://gitee.com/LY2016Start/blogtemplet" target="_blank">Contione1.0博客模板</a></h1>
+                        <p class="production-abstract">经典博客前端模板</p>
+                        <div class="production-footer">
+                            <a class="layui-btn layui-btn-sm layui-btn-primary" href="https://gitee.com/LY2016Start/blogtemplet" target="_blank"><i class="fa fa-eye fa-fw"></i>查看</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-primary" target="_blank"><i class="fa fa-download fa-fw"></i>下载</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._底部))
+    <!-- 移动端侧边导航 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._移动端侧边导航))
+    <!-- 侧边导航遮罩 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._侧边导航遮罩))
+
+    @section Scripts
+    {
+    }
+</body>
+
+</html>

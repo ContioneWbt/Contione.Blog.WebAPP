@@ -1,0 +1,189 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@using Contione.Blog.Infrastructure.BlogEnum;
+@using Contione.Blog.WebAPP.Models;
+@model CommonEnum.TypeHtml
+@switch (Model)
+{
+    case CommonEnum.TypeHtml._底部:
+        <footer class="blog-footer">
+            <p>
+                <a href="javascript:layer.msg('正在制作')">文章归档</a><a href="javascript:layer.msg('正在制作')">网站地图</a><a href=""
+                                                                                                                 target="_blank">联系作者</a><a href="javascript:layer.msg('正在制作')">小额赞赏</a>
+            </p>
+            <p>
+                <span>Powered by .NET Core 3.0</span><span>&copy;2017 - 2019</span><a href="https://www.contione.cn">www.contione.cn</a><span>版权所有</span><a href="http://www.miibeian.gov.cn/"
+                                                                                                                                                            target="_blank">鄂ICP备17012018号</a>
+            </p>
+        </footer>
+        break;
+    case CommonEnum.TypeHtml._移动端侧边导航:
+        <ul class="layui-nav layui-nav-tree layui-nav-side blog-nav-left layui-hide" lay-filter="nav">
+            <li class="layui-nav-item layui-this">
+                <a href="/home"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/article/all"><i class="fa fa-book fa-fw"></i>&nbsp;学海无涯</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/footprint/timeline"><i class="fa fa-snowflake-o fa-fw"></i>&nbsp;点点滴滴</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/production"><i class="fa fa-th-large fa-fw"></i>&nbsp;个人作品</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/comment"><i class="fa fa-comments fa-fw"></i>&nbsp;留言交流</a>
+            </li>
+            <li class="layui-nav-item ">
+                <a href="/about"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+            </li>
+        </ul>
+        break;
+    case CommonEnum.TypeHtml._首页:
+
+        break;
+    case CommonEnum.TypeHtml._侧边导航遮罩:
+        <!-- 侧边导航遮罩 -->
+        <div class="blog-mask animated layui-hide"></div>
+        break;
+    case CommonEnum.TypeHtml._网站首页:
+    case CommonEnum.TypeHtml._学海无涯:
+    case CommonEnum.TypeHtml._点点滴滴:
+    case CommonEnum.TypeHtml._个人作品:
+    case CommonEnum.TypeHtml._关于本站:
+    case CommonEnum.TypeHtml._留言交流:
+        <nav class="blog-nav layui-header">
+            <div class="layui-container">
+                <!-- 登陆后 -->
+                @if (base.Context.User?.Identity?.IsAuthenticated ?? false)
+                {
+                    <span class="blog-user">
+                        <a href="/user/logout?returnUrl=@(base.Context.Request.Path)">
+                            <img src="@(base.Context.User?.Claims?.FirstOrDefault(o => o.Type == MyClaimTypes.QQFigure)?.Value)" alt="" title="@(base.Context.User.Identity.Name)" />
+                        </a>
+                    </span>
+                }
+                else
+                {
+                    <!-- 未登陆 -->
+                    <a href="/user/login?provider=QQ&returnUrl=@(base.Context.Request.Path)" class="blog-user">
+                        <i class="fa fa-qq"></i>
+                    </a>
+                }
+
+                <a class="blog-logo" href="@(base.Context.Request.Path)">Contione</a>
+                <ul class="blog-nav-list" lay-filter="nav">
+                    <li class="layui-nav-item @(Model== CommonEnum.TypeHtml._网站首页?"layui-this":"")">
+                        <a href="/"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+                    </li>
+                    <li class="layui-nav-item @(Model== CommonEnum.TypeHtml._学海无涯?"layui-this":"")">
+                        <a href="/article/all"><i class="fa fa-book fa-fw"></i>&nbsp;学海无涯</a>
+                    </li>
+                    <li class="layui-nav-item @(Model== CommonEnum.TypeHtml._点点滴滴?"layui-this":"")">
+                        <a href="/footprint/timeline"><i class="fa fa-snowflake-o fa-fw"></i>&nbsp;点点滴滴</a>
+                    </li>
+                    <li class="layui-nav-item @(Model== CommonEnum.TypeHtml._个人作品?"layui-this":"")">
+                        <a href="/production"><i class="fa fa-th-large fa-fw"></i>&nbsp;个人作品</a>
+                    </li>
+                    <li class="layui-nav-item @(Model== CommonEnum.TypeHtml._留言交流?"layui-this":"")">
+                        <a href="/comment"><i class="fa fa-comments fa-fw"></i>&nbsp;留言交流</a>
+                    </li>
+                    <li class="layui-nav-item @(Model== CommonEnum.TypeHtml._关于本站?"layui-this":"")">
+                        <a href="/about"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+                    </li>
+                </ul>
+                <a class="blog-navicon" href="javascript:;">
+                    <i class="fa fa-navicon"></i>
+                </a>
+            </div>
+        </nav>
+        break;
+    case CommonEnum.TypeHtml._轮播:
+        <div class="left-box shadow" style="padding:5px;background-color:#fff;">
+            <!-- 此处Banner宽度需要根据Banner数量来动态设置，容器宽度为100*数量（%），Banner宽度为1/数量*100（%） -->
+            <div class="carousel-box" style="position:relative;background-color: #fff;overflow:hidden">
+                <div style="width:200%" class="banner">
+                    <ul>
+                        <li style="width:50%">
+                            <a href="#">
+                                <img src="/images/carousel/blog2.png" />
+                                <p>Contione2.0上线</p>
+                            </a>
+                        </li>
+                        <li style="width:50%">
+                            <a href="#">
+                                <img src="/images/carousel/carousel_001.png" />
+                                <p>Contione2.0上线</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        break;
+    case CommonEnum.TypeHtml._Contione:
+        <div class="layui-col-sm12 layui-col-md12">
+            <div class="blogerinfo shadow">
+                <div class="blogerinfo-figure">
+                    <img src="/images/Leo.jpg" alt="Leo" />
+                </div>
+                <div class="blogerinfo-info">
+                    <p class="blogerinfo-nickname">Contione</p>
+                    <p class="blogerinfo-introduce">一枚90后程序员，.NET开发工程师。</p>
+                    <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;湖北 - 武汉</p>
+                </div>
+                <div class="blogerinfo-contact">
+                    <a target="_blank" title="QQ交流"
+                       href="http://wpa.qq.com/msgrd?v=3&uin=827422876&site=qq&menu=yes">
+                        <i class="fa fa-qq fa-2x"></i>
+                    </a>
+                    <a target="_blank" title="给我写信"
+                       href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=eEBKT0xKSkBPTjgJCVYbFxU"
+                       style="text-decoration:none;"><i class="fa fa-envelope fa-2x"></i></a>
+                    <a target="_blank" title="新浪微博" href="http://weibo.com/Contione">
+                        <i class="fa fa-weibo fa-2x"></i>
+                    </a>
+                    <a target="_blank" title="GitHub" href="https://git.oschina.net/HeCongCong">
+                        <i class="fa fa-github fa-2x"></i>
+                    </a>
+                </div>
+                <div class="bloginfo-statistics">
+                    <div class="item">
+                        <span>12</span>
+                        <p>博文</p>
+                    </div>
+                    <div class="item">
+                        <span>12</span>
+                        <p>细语</p>
+                    </div>
+                    <div class="item">
+                        <span>12</span>
+                        <p>评论</p>
+                    </div>
+                    <div class="item">
+                        <span>12</span>
+                        <p>留言</p>
+                    </div>
+                </div>
+                <div class="bloginfo-runtime">
+                    博客已运行<span style="margin-left:4px;">583天14时17分38秒</span>
+                </div>
+            </div>
+        </div>
+        break;
+    case CommonEnum.TypeHtml._点赞分享:
+        <div class="article-component">
+            <div class="component-box">
+                <a href="javascript:;" class="praise" blog-event="praise">
+                    <i class="fa fa-thumbs-up fa-fw"></i>点赞（<span id="praiseCnt">0</span>）
+                </a>
+                <a href="javascript:;" class="reword" blog-event="reword">赏</a>
+                <a href="javascript:;" class="share" blog-event="share">
+                    <i class="fa fa-share-alt fa-fw"></i>分享（<span id="shareCnt">0</span>）
+                </a>
+            </div>
+        </div>
+        break;
+    default:
+        break;
+}

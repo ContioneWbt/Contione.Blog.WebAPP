@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contione.Blog.IAppService\Contione.Blog.IAppService.csproj" />
+    <ProjectReference Include="..\Contone.Blog.IRepository\Contone.Blog.IRepository.csproj" />
+  </ItemGroup>
+
+</Project>

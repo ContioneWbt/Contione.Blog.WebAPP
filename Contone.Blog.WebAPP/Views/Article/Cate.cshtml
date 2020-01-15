@@ -1,0 +1,223 @@
+﻿@using Contione.Blog.Model.DataModel;
+@using Contione.Blog.Infrastructure.BlogEnum;
+@using Contione.Blog.Infrastructure.Utility;
+@model Tuple<List<Article>, List<ArticleType>>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>@(CommonEnum.TypeHtml.文章分类)</title>
+    <!-- 本页特有css -->
+    <link rel="stylesheet" href="/css/comment.css">
+</head>
+<body>
+    <!-- 头部 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._学海无涯))
+
+    <!-- 主体 -->
+    <div class="blog-body">
+        <!-- 页面主体内容 -->
+        <div class="layui-container">
+            <blockquote class="layui-elem-quote sitemap shadow">
+                <i class="layui-icon"></i>
+                <span class="layui-breadcrumb" lay-separator=">" style="visibility: visible;">
+                    <a href="/">首页</a><span lay-separator="">&gt;</span>
+                    <a href="/article/all">学海无涯</a><span lay-separator="">&gt;</span>
+                    <a><cite>@(ViewBag.Name)</cite></a>
+                </span>
+            </blockquote>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md8">
+                    <div class="left-box">
+                        <p class="left-box-title shadow">
+                            <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>全部文章
+                        </p>
+
+                        @if (Model.Item1.IsNoContent())
+                        {
+                            foreach (var item in Model.Item1)
+                            {
+                                <div class="article shadow clearfix sr-listshow">
+                                    <div class="article-left">
+                                        <img src="@(item.Img)" alt="@(item.Title)" />
+                                    </div>
+                                    <div class="article-right">
+                                        <div class="article-title">
+                                            <a href="@(item.Href)@(item.IdentityId)">@(item.Title) @*@(Html.Raw(item.ArticleType.ConvertTitleEnum().TitleEnumStyle()))*@</a>
+                                        </div>
+                                        <div class="article-abstract">
+                                            @Html.Raw(item.Abstract)
+                                        </div>
+                                        <div class="article-footer">
+                                            <span class="layui-hide-xs">
+                                                <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<a style="color:#009688" href="">
+                                                    @(item.Title)
+                                                </a>
+                                            </span>
+                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;@(item.CreateTime.ToString("yyyy-MM-dd"))</span>
+                                            <span class="article-viewinfo">@(item.ViewNumber)阅</span>
+                                            <span class="article-viewinfo">@(item.CommentNumber)评</span>
+                                            <span class="article-viewinfo">8赞</span>
+                                            <a class="read layui-btn layui-btn-xs layui-btn-normal layui-hide-xs"
+                                               href="@(item.Href)@(item.IdentityId)" title="阅读全文：.NET Core 3.0正式版发布">阅读全文</a>
+                                        </div>
+                                        @Html.Raw(Model.Item1.IndexOf(item) == 0 ? "<div class='flag flag-left'>推荐</div>" : "")
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <!-- 没有数据 -->
+                            <div class="emptybox shadow">
+                                <p><i style="font-size:50px;color:#5fb878" class="layui-icon">&#xe69c;</i></p>
+                                <p>暂时没有任何数据</p>
+                            </div>
+                        }
+                    </div>
+
+                    @if (Model.Item1.IsNoContent())
+                    {
+                        <div class="blog-pagebox">
+                            <div class="laypage-main">
+                                <span class="laypage-curr">1</span>
+                                <a href="#">2 </a>
+                                <a href="#">3 </a>
+                                <a href="#" class="laypage-next">下一页</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-row layui-col-space10">
+                        <div class="layui-col-sm6 layui-col-md12 layui-hide-xs layui-hide-sm">
+                            <div class="blog-search">
+                                <form class="layui-form" action="">
+                                    <div class="layui-form-item">
+                                        <div class="search-keywords  shadow">
+                                            <input type="text" name="keywords" lay-verify="required"
+                                                   placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
+                                        </div>
+                                        <div class="search-submit  shadow">
+                                            <a class="search-btn" lay-submit="formSearch" lay-filter="formSearch">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-md12 padding0">
+                            <div class="article-category shadow">
+                                <div class="article-category-title">分类导航</div>
+                                @if (Model.Item2.IsNoContent())
+                                {
+                                    foreach (var item in Model.Item2)
+                                    {
+                                        @Html.Raw($"<a href='/article/cate/{item.TypeId}'>{item.Name}</a>");
+                                    }
+                                }
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-md12">
+                            <div class="blog-card">
+                                <div class="blog-card-title">
+                                    <span class="icon"><i class="layui-icon" aria-hidden="true"></i></span>
+                                    <span class="text">作者推荐</span>
+                                </div>
+                                <ul class="blog-card-ul">
+                                    <li>
+                                        <span class="layui-badge ">1</span><a href="/article/detail"
+                                                                              title=".NET Core 3.0正式版发布">.NET Core 3.0正式版发布</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge ">2</span><a href="/article/detail"
+                                                                              title="JS动画效果之妙用Animate.css">JS动画效果之妙用Animate.css</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge ">3</span><a href="/article/detail"
+                                                                              title="使用ASP.NET Core SignalR搭建聊天室（本站聊天室）">
+                                            使用ASP.NET Core
+                                            SignalR搭建聊天室（本站聊天室）
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">4</span><a href="/article/detail"
+                                                                                           title="小程序黑科技之获取手机号码、通讯地址、地理位置">小程序黑科技之获取手机号码、通讯地址、地理位置</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">5</span><a href="/article/detail"
+                                                                                           title="ASP.NET Core第三方认证之QQ登录">ASP.NET Core第三方认证之QQ登录</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-md12">
+                            <div class="blog-card shadow sr-rightmodule">
+                                <div class="blog-card-title">
+                                    <span class="icon"><i class="layui-icon" aria-hidden="true"></i></span>
+                                    <span class="text">随便看看</span>
+                                </div>
+                                <ul class="blog-card-ul">
+                                    <li>
+                                        <span class="layui-badge ">1</span><a href="/article/detail"
+                                                                              title="Xamarin.Forms移动开发系列1：介绍和安装">Xamarin.Forms移动开发系列1：介绍和安装</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge ">2</span><a href="/article/detail"
+                                                                              title="Visual Studio Code（VS Code）设置为中文">
+                                            Visual Studio Code（VS
+                                            Code）设置为中文
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge ">3</span><a href="/article/detail"
+                                                                              title="使用ASP.NET Core SignalR搭建聊天室（本站聊天室）">
+                                            使用ASP.NET Core
+                                            SignalR搭建聊天室（本站聊天室）
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">4</span><a href="/article/detail"
+                                                                                           title="博客升级到.NET Core 3.0的变化和问题">博客升级到.NET Core 3.0的变化和问题</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">5</span><a href="/article/detail"
+                                                                                           title="JS动画效果之妙用Animate.css">JS动画效果之妙用Animate.css</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">6</span><a href="/article/detail"
+                                                                                           title="ASP.NET Core第三方认证之QQ登录">ASP.NET Core第三方认证之QQ登录</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">7</span><a href="/article/detail"
+                                                                                           title="Xamarin.Forms移动开发系列3：项目剖析">Xamarin.Forms移动开发系列3：项目剖析</a>
+                                    </li>
+                                    <li>
+                                        <span class="layui-badge layui-bg-blue">8</span><a href="/article/detail"
+                                                                                           title="后台可以管理文章了，接下来开始做博客前台。">后台可以管理文章了，接下来开始做博客前台。</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--右边悬浮 平板或手机设备显示-->
+                    <div class="category-toggle"><i class="fa fa-chevron-left"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._底部))
+    <!-- 移动端侧边导航 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._移动端侧边导航))
+    <!-- 侧边导航遮罩 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._侧边导航遮罩))
+
+    @section Scripts
+    {
+
+    }
+</body>
+
+</html>

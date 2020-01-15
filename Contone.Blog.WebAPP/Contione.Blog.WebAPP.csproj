@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.QQ" Version="3.0.0" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contione.Blog.AppService\Contione.Blog.AppService.csproj" />
+    <ProjectReference Include="..\Contione.Blog.Infrastructure\Contione.Blog.Infrastructure.csproj" />
+    <ProjectReference Include="..\Contione.Blog.Model\Contione.Blog.Model.csproj" />
+    <ProjectReference Include="..\Contione.Blog.Repository\Contione.Blog.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

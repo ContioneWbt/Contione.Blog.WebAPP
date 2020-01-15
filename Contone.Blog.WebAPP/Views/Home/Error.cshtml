@@ -1,0 +1,41 @@
+﻿@using Contione.Blog.Infrastructure.BlogEnum;
+<!DOCTYPE html>
+<html lang="zh">
+@section styles{
+    <!-- 本页特有css -->
+    <link href="~/css/admin.css" rel="stylesheet" />
+    <link href="~/css/global.css" rel="stylesheet" />
+}
+<body>
+    <!-- 头部 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._网站首页))
+
+    <!-- 主体 -->
+    <div class="blog-body">
+        <!-- 首页内容 -->
+        <div class="error" style="padding: 50px 0;text-align: center;">
+            <h1>
+                <span style="display:inline-block;" class="animated pulse infinite">
+                    <i class="layui-icon"></i>
+                </span>
+            </h1>
+            <p style="font-size: 20px; font-weight: 300; ">嗨呀~你访问的页面不存在</p>
+            <h3>
+                <a href="javascript:history.back(-1);"><i class="fa fa-arrow-circle-left fa-fw"></i>返回</a>
+                <a href="/"><i class="fa fa-home fa-fw"></i>网站首页</a>
+            </h3>
+            <h4>Tips：您可能输入了错误的网址，或者该网页已删除或移动</h4>
+        </div>
+    </div>
+    <!-- 底部 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._底部))
+    <!-- 移动端侧边导航 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._移动端侧边导航))
+    <!-- 侧边导航遮罩 -->
+    @(await Html.PartialAsync("_Footer", CommonEnum.TypeHtml._侧边导航遮罩))
+    @section Scripts
+    {
+        <script src="~/lib/layui/layui.js"></script>
+    }
+</body>
+</html>
